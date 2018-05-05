@@ -2,7 +2,6 @@ package frogger.screen.frame.helpers.collision
 
 import frogger.screen.frame.elements.frog.Frog
 import frogger.screen.frame.elements.player.PlayerStatus
-import javafx.animation.AnimationTimer
 import javafx.scene.Node
 
 import scala.collection.JavaConversions.asScalaBuffer

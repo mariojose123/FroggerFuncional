@@ -3,6 +3,7 @@ package frogger.screen;
 import frogger.screen.frame.GameFrame;
 import frogger.screen.frame.elements.car.Car;
 import frogger.screen.frame.elements.frog.Frog;
+import frogger.screen.frame.elements.player.Player;
 import frogger.screen.frame.elements.player.PlayerStatus;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
@@ -92,7 +93,7 @@ public class Main extends Application {
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
                 if(Collisions.onUpdate((ArrayList<Node>) cars, frog).compareTo(PlayerStatus.LOSER()) ==0){
-                    timer.stop();
+                    startAgain();
                 }
             }
         };
@@ -104,6 +105,15 @@ public class Main extends Application {
         cars.get(0).toFront();
         cars.get(1).toFront();
         cars.get(2).toFront();
+    }
+    private void startAgain() {
+        timer.stop();
+        Player.lostLive();
+        try {
+            start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Frog setPersonageImage() {
