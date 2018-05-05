@@ -6,6 +6,7 @@ import frogger.screen.frame.elements.frog.Frog;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
+import frogger.screen.frame.helpers.collision.ColisionHelper;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -111,7 +112,7 @@ public class Main extends Application {
                 }
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
-                  onUpdate();
+                  ColisionHelper.colisionHelper(cars, frog, timer);
             }
         };
         timer.start();
@@ -137,19 +138,5 @@ public class Main extends Application {
         Car car = new Car();
         car.setTranslateY((int) (Math.random() * 14) * 40);
         return car;
-    }
-    private void onUpdate() {
-        for (Node car : cars)
-            car.setTranslateX(car.getTranslateX() + Math.random() * 10);
-            checkState();
-    }
-
-    private void checkState() {
-        for (Node car : cars) {
-            if (car.getBoundsInParent().intersects(frog.getFrog().getBoundsInParent())) {
-                timer.stop();
-                return;
-            }
-        }
     }
 }

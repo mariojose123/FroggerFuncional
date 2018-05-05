@@ -1,8 +1,11 @@
 package frogger.screen.frame.elements.frog;
 
+import frogger.screen.frame.elements.car.Car;
 import frogger.screen.frame.helpers.PositionCalculator;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+
+import java.util.List;
 
 
 public class Frog {
@@ -35,4 +38,5 @@ public class Frog {
 	public void switchFrogPositionAndImage(KeyCode keyCode) {
 		PositionCalculator.switchDirectionAndImage(keyCode);
 	}
+
 }
