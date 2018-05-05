@@ -24,4 +24,6 @@ object PositionAndImageVariables {
 
   var goLeft: Boolean = false
 
+  var livesRemaing = 3
+
 }
