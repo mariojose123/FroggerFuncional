@@ -6,9 +6,9 @@ import javafx.scene.layout.*;
 /**
  * @author Lucas Hagen.
  */
-public class Place extends Pane {
+public class TexturedElement extends Pane {
 
-    public Place(double width, double height) {
+    public TexturedElement(double width, double height) {
         super();
 
         this.setPrefHeight(height);

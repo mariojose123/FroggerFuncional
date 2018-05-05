@@ -22,7 +22,7 @@ public class GameFrame extends AnchorPane implements Initializable {
         fxmlLoader.load();
     }
 
-    public void generateMap() throws IOException {
+    private void generateMap() throws IOException {
         getChildren().add(new Map());
     }
 

@@ -1,11 +1,11 @@
 package frogger.screen.frame.elements.sidewalk;
 
-import frogger.screen.frame.elements.Place;
+import frogger.screen.frame.elements.TexturedElement;
 
 /**
  * @author Lucas Hagen.
  */
-public class Sidewalk extends Place {
+public class Sidewalk extends TexturedElement {
 
     public Sidewalk() {
         super(1280, 64);

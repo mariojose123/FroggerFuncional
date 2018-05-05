@@ -13,11 +13,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private GameFrame game;
-    Stage stage;
+    private Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
+        stage = primaryStage;
         stage.setTitle("Frogger - MLP");
         stage.setScene(new Scene(root, 1260, 720));
         stage.setResizable(false);
