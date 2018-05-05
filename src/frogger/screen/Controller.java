@@ -25,7 +25,4 @@ public class Controller implements Initializable {
         }
     }
 
-    public void onKeyPressed(KeyEvent event) {
-        System.out.println(event.getText());
-    }
 }
