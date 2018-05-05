@@ -6,7 +6,7 @@ import frogger.screen.frame.elements.frog.Frog;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
-import frogger.screen.frame.helpers.collision.ColisionHelper;
+import frogger.screen.frame.helpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -45,6 +45,7 @@ public class Main extends Application {
     private final Label livesRemaining = new Label();
     private AnchorPane anchor = new AnchorPane();
     private AnimationTimer timer;
+    private Group frogRoad;
 
 
     private List<Node> cars = new ArrayList<>();
@@ -67,33 +68,16 @@ public class Main extends Application {
         cars.add(spawnCar());
         cars.add(spawnCar());
 
-        Group frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
-        frog.getFrog().toFront();
-        cars.get(0).toFront();
-        cars.get(1).toFront();
-        cars.get(2).toFront();
+        frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
 
-        this.stage = primaryStage;
-        stage.setTitle("Frogger - MLP");
-        Scene scene = new Scene(frogRoad, PositionAndImageVariables.W(), PositionAndImageVariables.H());
-        stage.setScene(scene);
-        stage.setResizable(false);
+        setZindexOfSprites();
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                frog.switchFrog(event.getCode());
-            }
-        });
+        setStageAndScene(primaryStage, frogRoad);
 
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                frog.switchFrogPositionAndImage(event.getCode());
-            }
-        });
+        animationTimer();
+    }
+    private void animationTimer(){
 
-        stage.show();
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -112,12 +96,18 @@ public class Main extends Application {
                 }
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
-                  ColisionHelper.colisionHelper(cars, frog, timer);
+                //ColisionHelper.colisionHelper(cars, frog, timer);
+                Collisions.onUpdate((ArrayList<Node>) cars, frog, timer);
             }
         };
         timer.start();
     }
-
+    private void setZindexOfSprites(){
+        frog.getFrog().toFront();
+        cars.get(0).toFront();
+        cars.get(1).toFront();
+        cars.get(2).toFront();
+    }
     private Frog setPersonageImage() {
         personageImage = new Image(PositionAndImageVariables.FROG_UP());
         ImageViewConstant.frogImg = new ImageView(personageImage);
@@ -128,7 +118,33 @@ public class Main extends Application {
     private Parent getParentContent() throws IOException {
         return FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
     }
+    private void setStageAndScene(Stage primaryStage, Group frogRoad){
+        this.stage = primaryStage;
+        stage.setTitle("Frogger - MLP");
 
+        Scene scene = new Scene(frogRoad, PositionAndImageVariables.W(), PositionAndImageVariables.H());
+        stage.setScene(scene);
+        stage.setResizable(false);
+
+        setKeyEvents(scene);
+        stage.show();
+    }
+
+    private void setKeyEvents(Scene scene){
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                frog.switchFrog(event.getCode());
+            }
+        });
+
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                frog.switchFrogPositionAndImage(event.getCode());
+            }
+        });
+    }
     public static void main(String[] args) {
         launch(args);
     }
@@ -139,4 +155,5 @@ public class Main extends Application {
         car.setTranslateY((int) (Math.random() * 14) * 40);
         return car;
     }
+
 }

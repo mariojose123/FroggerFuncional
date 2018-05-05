@@ -1,6 +1,7 @@
 package frogger.screen.frame.helpers.collision
 
 import frogger.screen.frame.elements.frog.Frog
+import frogger.screen.frame.elements.player.PlayerStatus
 import javafx.animation.AnimationTimer
 import javafx.scene.Node
 
@@ -8,19 +9,21 @@ import scala.collection.JavaConversions.asScalaBuffer
 
 object Collisions {
 
-  
-   def onUpdate(carList: java.util.ArrayList[Node], frog: Frog, timer: AnimationTimer): Unit = {
+
+  def onUpdate(carList: java.util.ArrayList[Node], frog: Frog, timer: AnimationTimer):  PlayerStatus.Value = {
     for (car <- carList) car.setTranslateX(car.getTranslateX + Math.random() * 10)
-    checkState(carList, frog, timer)
+    return checkState(carList, frog, timer)
   }
 
-  private def checkState(carList: java.util.ArrayList[Node], frog: Frog, timer: AnimationTimer): Unit = {
+  private def checkState(carList: java.util.ArrayList[Node], frog: Frog, timer: AnimationTimer): PlayerStatus.Value = {
 
     for (car <- carList
          if car.getBoundsInParent.intersects(frog.getFrog.getBoundsInParent)) {
-          timer.stop()
-
+      timer.stop()
+      return PlayerStatus.LOSER
     }
+    return PlayerStatus.STILL_ON_GAME;
+
   }
 
 }
