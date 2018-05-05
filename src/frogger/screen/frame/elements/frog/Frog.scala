@@ -8,8 +8,15 @@ import scala.beans.BeanProperty
 
 class Frog(@BeanProperty var frog: Node) {
 
-  def moveFrogBy(dx: Int, dy: Int): Unit = {
-    PositionCalculator.moveFrogBy(frog, dx, dy)
+  def moveFrogBy(dx: Int, dy: Int): Boolean = {
+   // print(this.frog.getLayoutY + "\n")
+    val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
+    print(boundsInScene.getMinY + "\n")
+    if (boundsInScene.getMinY > 50) {
+      PositionCalculator.moveFrogBy(frog, dx, dy)
+      return true
+    }
+    return false
   }
 
   def moveFrogTo(x: Double, y: Double): Unit = {

@@ -93,7 +93,15 @@ public class Main extends Application {
                     frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 frog.setLastKeyPressedToFalse();
-                frog.moveFrogBy(dx, dy);
+                if (!frog.moveFrogBy(dx, dy) ) {
+                    timer.stop();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!");
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setOnHidden(evt -> Platform.exit());
+                    alert.show();
+
+                }
 
                 if(Collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
