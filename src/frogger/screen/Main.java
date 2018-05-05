@@ -8,6 +8,7 @@ import frogger.screen.frame.elements.player.PlayerStatus;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
+import frogger.screen.frame.helpers.UserCommunication.AlertManager;
 import frogger.screen.frame.helpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -25,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import scala.Enumeration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ public class Main extends Application {
 
     public Main() throws IOException {
     }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -94,12 +97,8 @@ public class Main extends Application {
                 }
                 frog.setLastKeyPressedToFalse();
                 if (!frog.moveFrogBy(dx, dy) ) {
-                    timer.stop();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!");
-                    alert.setTitle(null);
-                    alert.setHeaderText(null);
-                    alert.setOnHidden(evt -> Platform.exit());
-                    alert.show();
+                    Enumeration.Value value = PlayerStatus.WINNER();
+                    AlertManager.showAlert(value, timer);
 
                 }
 
