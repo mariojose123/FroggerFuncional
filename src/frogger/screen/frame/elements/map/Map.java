@@ -49,8 +49,6 @@ public class Map extends VBox {
         places.add(new Sidewalk());
         places.add(new Street(2));
 
-        this.car = new Car();
-        ((Street) places.get(1)).addCar(car);
     }
 
 }

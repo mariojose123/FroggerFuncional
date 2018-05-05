@@ -1,6 +1,7 @@
 package frogger.screen;
 
 import frogger.screen.frame.GameFrame;
+import frogger.screen.frame.elements.car.Car;
 import frogger.screen.frame.elements.frog.Frog;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
@@ -62,9 +63,14 @@ public class Main extends Application {
         frog.moveFrogTo(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
 
         cars.add(spawnCar());
-        Group frogRoad = new Group(frog.getFrog(), cars.get(0), root, livesRemaining);
+        cars.add(spawnCar());
+        cars.add(spawnCar());
+
+        Group frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
         frog.getFrog().toFront();
         cars.get(0).toFront();
+        cars.get(1).toFront();
+        cars.get(2).toFront();
 
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
@@ -126,15 +132,16 @@ public class Main extends Application {
         launch(args);
     }
 
-    private Rectangle spawnCar() {
-        Rectangle rect = new Rectangle(40, 40, Color.RED);
-        rect.setTranslateY((int) (Math.random() * 14) * 40);
-        return rect;
+    //TODO: tem de verificar se y de um carro n é mto parecido com o de outro, pq se sim eles vao ficar um em cima do outro, Dai tem de gerar outro rand
+    private Car spawnCar() {
+        Car car = new Car();
+        car.setTranslateY((int) (Math.random() * 14) * 40);
+        return car;
     }
     private void onUpdate() {
         for (Node car : cars)
             car.setTranslateX(car.getTranslateX() + Math.random() * 10);
-        checkState();
+            checkState();
     }
 
     private void checkState() {
