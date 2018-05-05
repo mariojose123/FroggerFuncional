@@ -2,6 +2,8 @@ package frogger.screen.frame.helpers
 
 object PositionAndImageVariables {
 
+  val KEYBOARD_MOVEMENT_DELTA = 12
+
   val W: Double = 1260
 
   val H: Double = 720

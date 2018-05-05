@@ -68,16 +68,16 @@ public class Main extends Application {
             public void handle(long now) {
                 int dx = 0, dy = 0;
                 if (PositionAndImageVariables.goUp()) {
-                    dy -= 12;
+                    dy -= PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
                 }
                 if (PositionAndImageVariables.goDown()) {
-                    dy += 12;
+                    dy += PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
                 }
                 if (PositionAndImageVariables.goRigth()) {
-                    dx += 12;
+                    dx += PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
                 }
                 if (PositionAndImageVariables.goLeft())  {
-                    dx -= 12;
+                    dx -= PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
                 }
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
