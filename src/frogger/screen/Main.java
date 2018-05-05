@@ -6,6 +6,7 @@ import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,41 +21,54 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
 
     private GameFrame game;
     private Stage stage;
-    private  Frog frog;
-    private  Parent root;
+    private Frog frog;
+    private Parent root;
 
     private Image personageImage;
     private Node personage;
     private final Label livesRemaining = new Label();
-    AnchorPane anchor = new AnchorPane();
+    private AnchorPane anchor = new AnchorPane();
+    private AnimationTimer timer;
+
+
+    private List<Node> cars = new ArrayList<>();
+
 
     public Main() throws IOException {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         root = getParentContent();
 
         LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining);
 
         frog = setPersonageImage();
-        frog.moveFrogTo(PositionAndImageVariables.W()/2,PositionAndImageVariables.H()/2);
-        
-        Group dungeon = new Group(frog.getFrog(), root, livesRemaining);
+        frog.moveFrogTo(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
+
+        cars.add(spawnCar());
+        Group dungeon = new Group(frog.getFrog(), cars.get(0), root, livesRemaining);
         frog.getFrog().toFront();
+        cars.get(0).toFront();
 
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
-        Scene scene =new Scene(dungeon, PositionAndImageVariables.W(), PositionAndImageVariables.H());
+        Scene scene = new Scene(dungeon, PositionAndImageVariables.W(), PositionAndImageVariables.H());
         stage.setScene(scene);
         stage.setResizable(false);
 
@@ -73,41 +87,75 @@ public class Main extends Application {
         });
 
         stage.show();
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 int dx = 0, dy = 0;
                 if (PositionAndImageVariables.goUp()) {
-                    dy -= PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
+                    frog.getFrog().setTranslateY(frog.getFrog().getTranslateY() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 if (PositionAndImageVariables.goDown()) {
-                    dy += PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
+                    frog.getFrog().setTranslateY(frog.getFrog().getTranslateY() + PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 if (PositionAndImageVariables.goRigth()) {
-                    dx += PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
+                    frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() + PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
-                if (PositionAndImageVariables.goLeft())  {
-                    dx -= PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA();
+                if (PositionAndImageVariables.goLeft()) {
+                    frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
+                //  onUpdate();
             }
         };
         timer.start();
     }
 
-    private Frog setPersonageImage(){
+    private Frog setPersonageImage() {
         personageImage = new Image(PositionAndImageVariables.FROG_UP());
-        ImageViewConstant.frogImg= new ImageView(personageImage);
-        personage =ImageViewConstant.frogImg;
+        ImageViewConstant.frogImg = new ImageView(personageImage);
+        personage = ImageViewConstant.frogImg;
         return new Frog(personage);
     }
-private Parent getParentContent() throws IOException {
-    return FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
-}
+
+    private Parent getParentContent() throws IOException {
+        return FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    private Rectangle spawnCar() {
+        Rectangle rect = new Rectangle(40, 40, Color.RED);
+        rect.setTranslateY((int) (Math.random() * 14) * 40);
+        return rect;
+//    }
+//    private void onUpdate() {
+//        for (Node car : cars)
+//            car.setTranslateX(car.getTranslateX() + Math.random() * 10);
+//
+//        if (Math.random() < 0.075) {
+//            cars.add(spawnCar());
+//        }
+//
+//        checkState();
+//    }
+//
+//    private void checkState() {
+//        for (Node car : cars) {
+//            if (car.getBoundsInParent().intersects(frog.getFrog().getBoundsInParent())) {
+//                frog.getFrog().setTranslateX(0);
+//                frog.getFrog().setTranslateY(600 - 39);
+//                return;
+//            }
+//        }
+//
+//        if ( frog.getFrog().getTranslateY() <= 0) {
+//            timer.stop();
+//            String win = "YOU WIN";
+//            System.out.println(win);
+//        }
+//    }
+    }
 }
