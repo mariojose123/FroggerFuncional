@@ -28,6 +28,8 @@ public class Main extends Application {
 
     private GameFrame game;
     private Stage stage;
+    private  Frog frog;
+    private  Parent root;
 
     private Image personageImage;
     private Node personage;
@@ -39,15 +41,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        personageImage = new Image(PositionAndImageVariables.FROG_UP());
-        ImageViewConstant.frogImg= new ImageView(personageImage);
-        personage =ImageViewConstant.frogImg;
-        Frog frog = new Frog(personage);
-        frog.moveFrogTo(PositionAndImageVariables.W()/2,PositionAndImageVariables.H()/2);
-        Parent root = FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
+
+        root = getParentContent();
+
         LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining);
+
+        frog = setPersonageImage();
+        frog.moveFrogTo(PositionAndImageVariables.W()/2,PositionAndImageVariables.H()/2);
+        
         Group dungeon = new Group(frog.getFrog(), root, livesRemaining);
         frog.getFrog().toFront();
+
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
         Scene scene =new Scene(dungeon, PositionAndImageVariables.W(), PositionAndImageVariables.H());
@@ -92,6 +96,15 @@ public class Main extends Application {
         timer.start();
     }
 
+    private Frog setPersonageImage(){
+        personageImage = new Image(PositionAndImageVariables.FROG_UP());
+        ImageViewConstant.frogImg= new ImageView(personageImage);
+        personage =ImageViewConstant.frogImg;
+        return new Frog(personage);
+    }
+private Parent getParentContent() throws IOException {
+    return FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
+}
 
     public static void main(String[] args) {
         launch(args);
