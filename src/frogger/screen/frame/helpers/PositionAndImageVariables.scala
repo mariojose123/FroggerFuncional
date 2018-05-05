@@ -1,16 +1,6 @@
 package frogger.screen.frame.helpers
 
-import javafx.fxml.FXML
-
-import javafx.scene.image.ImageView
-
-//remove if not needed
-import scala.collection.JavaConversions._
-
 object PositionAndImageVariables {
-
-  @FXML
-  val frogImg: ImageView =frogImg
 
   val W: Double = 1260
 
