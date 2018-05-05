@@ -29,8 +29,8 @@ public class Main extends Application {
     private GameFrame game;
     private Stage stage;
 
-    private Image heroImage;
-    private Node hero;
+    private Image personageImage;
+    private Node personage;
     private final Label livesRemaining = new Label();
     AnchorPane anchor = new AnchorPane();
 
@@ -39,10 +39,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        heroImage = new Image(PositionAndImageVariables.FROG_UP());
-        ImageViewConstant.frogImg= new ImageView(heroImage);
-        hero =ImageViewConstant.frogImg;
-        Frog frog = new Frog(hero);
+        personageImage = new Image(PositionAndImageVariables.FROG_UP());
+        ImageViewConstant.frogImg= new ImageView(personageImage);
+        personage =ImageViewConstant.frogImg;
+        Frog frog = new Frog(personage);
         frog.moveFrogTo(PositionAndImageVariables.W()/2,PositionAndImageVariables.H()/2);
         Parent root = FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
         LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining);
@@ -90,17 +90,6 @@ public class Main extends Application {
             }
         };
         timer.start();
-    }
-
-    private void livesRemainingPanel(){
-        AnchorPane.setTopAnchor(livesRemaining, 50.0);
-        AnchorPane.setRightAnchor(livesRemaining, 50.0);
-        livesRemaining.setText(String.format("Vidas Restantes: %d", 3));
-        livesRemaining.setTextFill(Color.web("#0076a3"));
-        livesRemaining.setScaleY(1.5);
-        livesRemaining.backgroundProperty().setValue(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        anchor.toFront();
-        anchor.getChildren().add(livesRemaining);
     }
 
 
