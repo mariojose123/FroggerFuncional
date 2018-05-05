@@ -62,13 +62,13 @@ public class Main extends Application {
         frog.moveFrogTo(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
 
         cars.add(spawnCar());
-        Group dungeon = new Group(frog.getFrog(), cars.get(0), root, livesRemaining);
+        Group frogRoad = new Group(frog.getFrog(), cars.get(0), root, livesRemaining);
         frog.getFrog().toFront();
         cars.get(0).toFront();
 
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
-        Scene scene = new Scene(dungeon, PositionAndImageVariables.W(), PositionAndImageVariables.H());
+        Scene scene = new Scene(frogRoad, PositionAndImageVariables.W(), PositionAndImageVariables.H());
         stage.setScene(scene);
         stage.setResizable(false);
 
@@ -105,7 +105,7 @@ public class Main extends Application {
                 }
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
-                //  onUpdate();
+                  onUpdate();
             }
         };
         timer.start();
@@ -130,32 +130,19 @@ public class Main extends Application {
         Rectangle rect = new Rectangle(40, 40, Color.RED);
         rect.setTranslateY((int) (Math.random() * 14) * 40);
         return rect;
-//    }
-//    private void onUpdate() {
-//        for (Node car : cars)
-//            car.setTranslateX(car.getTranslateX() + Math.random() * 10);
-//
-//        if (Math.random() < 0.075) {
-//            cars.add(spawnCar());
-//        }
-//
-//        checkState();
-//    }
-//
-//    private void checkState() {
-//        for (Node car : cars) {
-//            if (car.getBoundsInParent().intersects(frog.getFrog().getBoundsInParent())) {
-//                frog.getFrog().setTranslateX(0);
-//                frog.getFrog().setTranslateY(600 - 39);
-//                return;
-//            }
-//        }
-//
-//        if ( frog.getFrog().getTranslateY() <= 0) {
-//            timer.stop();
-//            String win = "YOU WIN";
-//            System.out.println(win);
-//        }
-//    }
+    }
+    private void onUpdate() {
+        for (Node car : cars)
+            car.setTranslateX(car.getTranslateX() + Math.random() * 10);
+        checkState();
+    }
+
+    private void checkState() {
+        for (Node car : cars) {
+            if (car.getBoundsInParent().intersects(frog.getFrog().getBoundsInParent())) {
+                timer.stop();
+                return;
+            }
+        }
     }
 }
