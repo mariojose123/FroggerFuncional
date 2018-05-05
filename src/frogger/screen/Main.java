@@ -2,6 +2,7 @@ package frogger.screen;
 
 import frogger.screen.frame.GameFrame;
 import frogger.screen.frame.elements.frog.Frog;
+import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -13,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -32,11 +32,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        heroImage = new Image(PositionAndImageVariables.FROG_UP);
-        PositionAndImageVariables.frogImg= new ImageView(heroImage);
-        hero =PositionAndImageVariables.frogImg;
+        heroImage = new Image(PositionAndImageVariables.FROG_UP());
+        ImageViewConstant.frogImg= new ImageView(heroImage);
+        hero =ImageViewConstant.frogImg;
         Frog frog = new Frog(hero);
-        frog.moveFrogTo(PositionAndImageVariables.W/2,PositionAndImageVariables.H/2);
+        frog.moveFrogTo(PositionAndImageVariables.W()/2,PositionAndImageVariables.H()/2);
 
 
         Parent root = FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
@@ -44,7 +44,7 @@ public class Main extends Application {
         frog.getFrog().toFront();
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
-        Scene scene =new Scene(dungeon, PositionAndImageVariables.W, PositionAndImageVariables.H);
+        Scene scene =new Scene(dungeon, PositionAndImageVariables.W(), PositionAndImageVariables.H());
         stage.setScene(scene);
         stage.setResizable(false);
 
@@ -67,16 +67,16 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 int dx = 0, dy = 0;
-                if (PositionAndImageVariables.goUp) {
+                if (PositionAndImageVariables.goUp()) {
                     dy -= 12;
                 }
-                if (PositionAndImageVariables.goDown) {
+                if (PositionAndImageVariables.goDown()) {
                     dy += 12;
                 }
-                if (PositionAndImageVariables.goRigth) {
+                if (PositionAndImageVariables.goRigth()) {
                     dx += 12;
                 }
-                if (PositionAndImageVariables.goLeft)  {
+                if (PositionAndImageVariables.goLeft())  {
                     dx -= 12;
                 }
                 frog.setLastKeyPressedToFalse();

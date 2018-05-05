@@ -15,21 +15,21 @@ trait PositionSwitches {
   def switchPositionAndImage(keyCode: KeyCode): Unit = keyCode match {
     case KeyCode.UP => {
       PositionAndImageVariables.goUp = true
-      PositionAndImageVariables.frogImg.setImage(new Image(PositionAndImageVariables.FROG_UP))
+      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_UP))
     }
     case KeyCode.DOWN => {
       PositionAndImageVariables.goDown = true
-      PositionAndImageVariables.frogImg.setImage(new Image(PositionAndImageVariables.FROG_DOWN))
+      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_DOWN))
     }
     case KeyCode.LEFT
     => {
       PositionAndImageVariables.goLeft = true
-      PositionAndImageVariables.frogImg.setImage(new Image(PositionAndImageVariables.FROG_LEFT))
+      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_LEFT))
     }
     case KeyCode.RIGHT
     => {
       PositionAndImageVariables.goRigth = true
-      PositionAndImageVariables.frogImg.setImage(new Image(PositionAndImageVariables.FROG_RIGHT))
+      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_RIGHT))
     }
   }
 
