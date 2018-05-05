@@ -1,9 +1,9 @@
-package frogger.screen.frame.elements.frog
+package frogger.screen.frame.helpers
 
-import frogger.screen.Main
 import javafx.scene.Node
+import javafx.scene.input.KeyCode
 
-object PositionCalculator {
+object PositionCalculator extends PositionSwitches {
 
   def moveFrogBy(frog: Node, dx: Int, dy: Int): Unit = {
     if (dx == 0 && dy == 0) return
@@ -17,9 +17,14 @@ object PositionCalculator {
   def moveFrogTo(frog: Node, x: Double, y: Double): Unit = {
     val cx: Double = frog.getBoundsInLocal.getWidth / 2
     val cy: Double = frog.getBoundsInLocal.getHeight / 2
-    if (x - cx >= 0 && x + cx <= Main.W && y - cy >= 0 && y + cy <= Main.H) {
+    if (x - cx >= 0 && x + cx <= PositionAndImageVariables.W && y - cy >= 0 && y + cy <= PositionAndImageVariables.H) {
       frog.relocate(x - cx, y - cy)
     }
-
+  }
+  def switchDirection(keyCode: KeyCode) : Unit = {
+    switchPosition(keyCode)
+  }
+  def switchDirectionAndImage(keyCode: KeyCode) : Unit = {
+    switchPositionAndImage(keyCode)
   }
 }
