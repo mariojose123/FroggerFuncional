@@ -94,8 +94,10 @@ public class Main extends Application {
                 }
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
-                if(Collisions.onUpdate((ArrayList<Node>) cars, frog).compareTo(PlayerStatus.LOSER()) ==0){
+
+                if(Collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
+
                 }
             }
         };
