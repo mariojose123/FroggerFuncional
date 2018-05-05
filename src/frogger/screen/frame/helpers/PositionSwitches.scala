@@ -10,6 +10,7 @@ trait PositionSwitches {
     case KeyCode.DOWN => PositionAndImageVariables.goDown = false
     case KeyCode.LEFT => PositionAndImageVariables.goLeft = false
     case KeyCode.RIGHT => PositionAndImageVariables.goRigth = false
+    case x => false
   }
 
   def switchPositionAndImage(keyCode: KeyCode): Unit = keyCode match {
@@ -31,6 +32,7 @@ trait PositionSwitches {
       PositionAndImageVariables.goRigth = true
       ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_RIGHT))
     }
+    case x => {}
   }
 
   def setFalseToLastKeyActive(): Unit ={
