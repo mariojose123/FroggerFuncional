@@ -10,16 +10,15 @@ import scala.collection.JavaConversions.asScalaBuffer
 object Collisions {
 
 
-  def onUpdate(carList: java.util.ArrayList[Node], frog: Frog, timer: AnimationTimer):  PlayerStatus.Value = {
+  def onUpdate(carList: java.util.ArrayList[Node], frog: Frog):  PlayerStatus.Value = {
     for (car <- carList) car.setTranslateX(car.getTranslateX + Math.random() * 10)
-    return checkState(carList, frog, timer)
+    return checkState(carList, frog)
   }
 
-  private def checkState(carList: java.util.ArrayList[Node], frog: Frog, timer: AnimationTimer): PlayerStatus.Value = {
+  private def checkState(carList: java.util.ArrayList[Node], frog: Frog): PlayerStatus.Value = {
 
     for (car <- carList
          if car.getBoundsInParent.intersects(frog.getFrog.getBoundsInParent)) {
-      timer.stop()
       return PlayerStatus.LOSER
     }
     return PlayerStatus.STILL_ON_GAME;

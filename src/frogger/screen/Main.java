@@ -3,16 +3,15 @@ package frogger.screen;
 import frogger.screen.frame.GameFrame;
 import frogger.screen.frame.elements.car.Car;
 import frogger.screen.frame.elements.frog.Frog;
+import frogger.screen.frame.elements.player.PlayerStatus;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
 import frogger.screen.frame.helpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,13 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -76,7 +70,8 @@ public class Main extends Application {
 
         animationTimer();
     }
-    private void animationTimer(){
+
+    private void animationTimer() {
 
         timer = new AnimationTimer() {
             @Override
@@ -96,18 +91,21 @@ public class Main extends Application {
                 }
                 frog.setLastKeyPressedToFalse();
                 frog.moveFrogBy(dx, dy);
-                //ColisionHelper.colisionHelper(cars, frog, timer);
-                Collisions.onUpdate((ArrayList<Node>) cars, frog, timer);
+                if(Collisions.onUpdate((ArrayList<Node>) cars, frog).compareTo(PlayerStatus.LOSER()) ==0){
+                    timer.stop();
+                }
             }
         };
         timer.start();
     }
-    private void setZindexOfSprites(){
+
+    private void setZindexOfSprites() {
         frog.getFrog().toFront();
         cars.get(0).toFront();
         cars.get(1).toFront();
         cars.get(2).toFront();
     }
+
     private Frog setPersonageImage() {
         personageImage = new Image(PositionAndImageVariables.FROG_UP());
         ImageViewConstant.frogImg = new ImageView(personageImage);
@@ -118,7 +116,8 @@ public class Main extends Application {
     private Parent getParentContent() throws IOException {
         return FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
     }
-    private void setStageAndScene(Stage primaryStage, Group frogRoad){
+
+    private void setStageAndScene(Stage primaryStage, Group frogRoad) {
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
 
@@ -130,7 +129,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    private void setKeyEvents(Scene scene){
+    private void setKeyEvents(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -145,6 +144,7 @@ public class Main extends Application {
             }
         });
     }
+
     public static void main(String[] args) {
         launch(args);
     }
