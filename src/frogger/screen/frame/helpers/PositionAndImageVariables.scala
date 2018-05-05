@@ -26,4 +26,8 @@ object PositionAndImageVariables {
 
   var livesRemaing = 3
 
+  def reestartLivesRemaining(): Unit ={
+    livesRemaing = 3;
+  }
+
 }

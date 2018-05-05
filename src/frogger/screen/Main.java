@@ -11,12 +11,14 @@ import frogger.screen.frame.helpers.PositionAndImageVariables;
 import frogger.screen.frame.helpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -109,13 +111,33 @@ public class Main extends Application {
     private void startAgain() {
         timer.stop();
         Player.lostLive();
-        try {
-            start(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (PositionAndImageVariables.livesRemaing() < 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você perdeu o jogo!");
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setOnHidden(evt -> Platform.exit());
+            alert.show();
+        } else {
+            try {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + PositionAndImageVariables.livesRemaing() + " vidas");
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+
+                alert.setOnHidden(evt -> {
+                    try {
+                        start(stage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                alert.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
     private Frog setPersonageImage() {
         personageImage = new Image(PositionAndImageVariables.FROG_UP());
         ImageViewConstant.frogImg = new ImageView(personageImage);
