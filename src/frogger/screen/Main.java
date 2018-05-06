@@ -2,6 +2,9 @@ package frogger.screen;
 
 import frogger.screen.frame.GameFrame;
 import frogger.screen.frame.elements.car.Car;
+import frogger.screen.frame.elements.car.DefineCarSpawns;
+import frogger.screen.frame.elements.car.RedCar;
+import frogger.screen.frame.elements.car.YellowCar;
 import frogger.screen.frame.elements.frog.Frog;
 import frogger.screen.frame.elements.player.Player;
 import frogger.screen.frame.elements.player.PlayerStatus;
@@ -11,12 +14,14 @@ import frogger.screen.frame.helpers.PositionAndImageVariables;
 import frogger.screen.frame.helpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,7 +46,7 @@ public class Main extends Application {
     private AnchorPane anchor = new AnchorPane();
     private AnimationTimer timer;
     private Group frogRoad;
-
+    DefineCarSpawns carSpawns= new DefineCarSpawns();
 
     private List<Node> cars = new ArrayList<>();
 
@@ -57,11 +62,11 @@ public class Main extends Application {
         LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining);
 
         frog = setPersonageImage();
-        frog.moveFrogTo(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
+        frog.moveFrog(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
 
-        cars.add(spawnCar());
-        cars.add(spawnCar());
-        cars.add(spawnCar());
+        cars.add(carSpawns.spawnYellowCar());
+        cars.add(carSpawns.spawnYellowCar());
+        cars.add(carSpawns.spawnRedCar());
 
         frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
 
@@ -91,7 +96,7 @@ public class Main extends Application {
                     frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 frog.setLastKeyPressedToFalse();
-                frog.moveFrogBy(dx, dy);
+                frog.moveFrog(dx, dy);
 
                 if(Collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
@@ -111,13 +116,33 @@ public class Main extends Application {
     private void startAgain() {
         timer.stop();
         Player.lostLive();
-        try {
-            start(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (PositionAndImageVariables.livesRemaing() < 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você perdeu o jogo!");
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setOnHidden(evt -> Platform.exit());
+            alert.show();
+        } else {
+            try {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + PositionAndImageVariables.livesRemaing() + " vidas");
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+
+                alert.setOnHidden(evt -> {
+                    try {
+                        start(stage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                alert.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
     private Frog setPersonageImage() {
         personageImage = new Image(PositionAndImageVariables.FROG_UP());
         ImageViewConstant.frogImg = new ImageView(personageImage);
@@ -159,13 +184,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    //TODO: tem de verificar se y de um carro n é mto parecido com o de outro, pq se sim eles vao ficar um em cima do outro, Dai tem de gerar outro rand
-    private Car spawnCar() {
-        Car car = new Car();
-        car.setTranslateY((int) (Math.random() * 14) * 40);
-        return car;
     }
 
 }

@@ -11,9 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Lucas Hagen.
- */
 public class Map extends VBox {
 
     private List<TexturedElement> places;
