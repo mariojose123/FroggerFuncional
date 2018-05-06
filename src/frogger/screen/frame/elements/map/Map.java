@@ -39,13 +39,15 @@ public class Map extends VBox {
     private void addPlaces() {
         places.add(new Sidewalk());
         places.add(new Street(1));
-        places.add(new Sidewalk());
-        places.add(new Street(2));
-        places.add(new Sidewalk());
+        places.add(new Street(1));
         places.add(new Street(1));
         places.add(new Sidewalk());
-        places.add(new Street(2));
-
+        places.add(new Sidewalk());
+        places.add(new Street(1));
+        places.add(new Street(1));
+        places.add(new Street(1));
+        places.add(new Sidewalk());
+        places.add(new Sidewalk());
     }
 
 }

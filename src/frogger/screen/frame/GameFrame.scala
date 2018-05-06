@@ -7,11 +7,6 @@ import frogger.screen.frame.elements.map.Map
 import javafx.fxml.{FXMLLoader, Initializable}
 import javafx.scene.layout.AnchorPane
 
-//remove if not needed
-
-/**
-  * @author Lucas Hagen.
-  */
 class GameFrame extends AnchorPane with Initializable {
 
   val fxmlLoader: FXMLLoader = new FXMLLoader(

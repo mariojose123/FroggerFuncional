@@ -5,9 +5,6 @@ import javafx.scene.Node
 
 class DefineCarSpawns(val car: Car) {
 
-
-  //deixar isso assim tbm pq é o construtor por sobrecarga, NAO MEXER PFF OU CABEÇAS ROLARÃO, hihi <3
-
   def this(car: YellowCar) = {
     this(car: Car)
     spawnCars(car)

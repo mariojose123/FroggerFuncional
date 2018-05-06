@@ -177,7 +177,6 @@ public class Main extends Application {
     private void setStageAndScene(Stage primaryStage, Group frogRoad) {
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
-
         Scene scene = new Scene(frogRoad, PositionAndImageVariables.W(), PositionAndImageVariables.H());
         stage.setScene(scene);
         stage.setResizable(false);

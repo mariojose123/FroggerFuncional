@@ -3,9 +3,6 @@ package frogger.screen.frame.elements;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
-/**
- * @author Lucas Hagen.
- */
 public class TexturedElement extends Pane {
 
     public TexturedElement(double width, double height) {
