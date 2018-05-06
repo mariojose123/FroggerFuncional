@@ -4,7 +4,6 @@ import frogger.screen.frame.helpers.PositionCalculator
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 
-
 class Frog(var frog: Node) {
 
   def getFrog(): Node ={
@@ -17,6 +16,7 @@ class Frog(var frog: Node) {
   }
 
   def moveFrog(x: Double, y: Double): Unit = {
+    
     PositionCalculator.moveFrogTo(frog, x, y)
   }
 
