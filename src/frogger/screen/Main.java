@@ -2,6 +2,9 @@ package frogger.screen;
 
 import frogger.screen.frame.GameFrame;
 import frogger.screen.frame.elements.car.Car;
+import frogger.screen.frame.elements.car.DefineCarSpawns;
+import frogger.screen.frame.elements.car.RedCar;
+import frogger.screen.frame.elements.car.YellowCar;
 import frogger.screen.frame.elements.frog.Frog;
 import frogger.screen.frame.elements.player.Player;
 import frogger.screen.frame.elements.player.PlayerStatus;
@@ -45,7 +48,7 @@ public class Main extends Application {
     private AnchorPane anchor = new AnchorPane();
     private AnimationTimer timer;
     private Group frogRoad;
-
+    DefineCarSpawns carSpawns= new DefineCarSpawns();
 
     private List<Car> cars = new ArrayList<>();
 
@@ -62,11 +65,11 @@ public class Main extends Application {
         LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining);
 
         frog = setPersonageImage();
-        frog.moveFrogTo(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
+        frog.moveFrog(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
 
-        cars.add(spawnCar());
-        cars.add(spawnCar());
-        cars.add(spawnCar());
+        cars.add(carSpawns.spawnYellowCar());
+        cars.add(carSpawns.spawnYellowCar());
+        cars.add(carSpawns.spawnRedCar());
 
         frogRoad = new Group(frog.getFrog(),
                 cars.get(0).getCarNode(),
@@ -99,11 +102,8 @@ public class Main extends Application {
                     frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 frog.setLastKeyPressedToFalse();
-                if (!frog.moveFrogBy(dx, dy) ) {
-                    Enumeration.Value value = PlayerStatus.WINNER();
-                    AlertManager.showAlert(value, timer);
 
-                }
+                frog.moveFrog(dx, dy);
 
                 if(Collisions.onUpdate((ArrayList<Car>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
@@ -191,17 +191,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    //TODO: tem de verificar se y de um carro n é mto parecido com o de outro, pq se sim eles vao ficar um em cima do outro, Dai tem de gerar outro rand
-    private Car spawnCar() {
-        Image carImage = new Image("resources/star.png");
-      // ImageViewConstant.frogImg = new ImageView(carImage);
-        System.out.println("alo");
-        ImageView imageView = new ImageView(carImage);
-      //  ImageView carCharacter = ImageViewConstant.frogImg;
-        return new Car(imageView);
-
     }
 
 }

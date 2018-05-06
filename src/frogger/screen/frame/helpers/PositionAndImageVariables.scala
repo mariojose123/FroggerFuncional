@@ -8,13 +8,13 @@ object PositionAndImageVariables {
 
   val H: Double = 720
 
-  val FROG_UP: String = "frogger/screen/frame/elements/frog/frog-up.png"
+  val FROG_UP: String = "frogger/screen/frame/elements/frog/assets/frog-up.png"
 
-  val FROG_DOWN: String = "frogger/screen/frame/elements/frog/frog-down.png"
+  val FROG_DOWN: String = "frogger/screen/frame/elements/frog/assets/frog-down.png"
 
-  val FROG_LEFT: String = "frogger/screen/frame/elements/frog/frog-left.png"
+  val FROG_LEFT: String = "frogger/screen/frame/elements/frog/assets/frog-left.png"
 
-  val FROG_RIGHT: String = "frogger/screen/frame/elements/frog/frog-right.png"
+  val FROG_RIGHT: String = "frogger/screen/frame/elements/frog/assets/frog-right.png"
 
   var goUp: Boolean = false
 

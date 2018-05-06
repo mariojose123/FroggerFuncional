@@ -4,22 +4,19 @@ import frogger.screen.frame.helpers.PositionCalculator
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 
-import scala.beans.BeanProperty
+class Frog(var frog: Node) {
 
-class Frog(@BeanProperty var frog: Node) {
-
-  def moveFrogBy(dx: Int, dy: Int): Boolean = {
-   // print(this.frog.getLayoutY + "\n")
-    val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
-    //print(boundsInScene.getMinY + "\n")
-    if (boundsInScene.getMinY > 50) {
-      PositionCalculator.moveFrogBy(frog, dx, dy)
-      return true
-    }
-    return false
+  def getFrog(): Node ={
+    if(frog == null) throw new Exception("Erro no jogo, tente jogar novamente!")
+    return frog
+  }
+//Usar polimorfismo por sobrecarga(ESSES DOIS ABAIXO)
+  def moveFrog(dx: Int, dy: Int): Unit = {
+    PositionCalculator.moveFrogBy(frog, dx, dy)
   }
 
-  def moveFrogTo(x: Double, y: Double): Unit = {
+  def moveFrog(x: Double, y: Double): Unit = {
+    
     PositionCalculator.moveFrogTo(frog, x, y)
   }
 
