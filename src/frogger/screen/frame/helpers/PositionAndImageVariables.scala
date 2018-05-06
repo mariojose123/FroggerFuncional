@@ -1,5 +1,7 @@
 package frogger.screen.frame.helpers
 
+import scala.collection.mutable
+
 object PositionAndImageVariables {
 
   val KEYBOARD_MOVEMENT_DELTA = 12
@@ -25,6 +27,14 @@ object PositionAndImageVariables {
   var goLeft: Boolean = false
 
   var livesRemaing = 3
+
+  var UP_MARGIN = 50
+
+  var carPositions = mutable.MutableList[Double]()
+
+  def restartCarPositionsList(): Unit = {
+    carPositions = mutable.MutableList[Double]()
+  }
 
   def reestartLivesRemaining(): Unit ={
     if(livesRemaing < 0) livesRemaing = 3;

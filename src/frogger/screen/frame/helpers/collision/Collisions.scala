@@ -21,7 +21,6 @@ object Collisions {
   }
 
   private def checkState(carList: java.util.ArrayList[Node], frog: Frog): PlayerStatus.Value = {
-
     for (car <- carList
          if car.getBoundsInParent.intersects(frog.getFrog.getBoundsInParent)) {
       return PlayerStatus.LOSER

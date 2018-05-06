@@ -13,7 +13,7 @@ class Frog(var frog: Node) {
   //Usar polimorfismo por sobrecarga(deixar com o mesmo nome os métodos, NAO MUDEM, pff)
   def moveFrog(dx: Int, dy: Int): Boolean = {
     val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
-    if (boundsInScene.getMinY > 50) {
+    if (boundsInScene.getMinY > 10) {
       PositionCalculator.moveFrogBy(frog, dx, dy)
       return true
     }

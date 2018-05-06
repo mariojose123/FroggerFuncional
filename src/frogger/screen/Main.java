@@ -10,6 +10,7 @@ import frogger.screen.frame.elements.player.Player;
 import frogger.screen.frame.elements.player.PlayerStatus;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
+import frogger.screen.frame.helpers.MusicManager;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
 import frogger.screen.frame.helpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
@@ -29,9 +30,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Main extends Application {
 
@@ -47,6 +52,7 @@ public class Main extends Application {
     private AnimationTimer timer;
     private Group frogRoad;
 
+
     private List<Node> cars = new ArrayList<>();
 
 
@@ -56,13 +62,17 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        PositionAndImageVariables.restartCarPositionsList();
+        MusicManager.playMusic(PlayerStatus.STILL_ON_GAME());
+
         root = getParentContent();
 
         LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining);
 
         frog = setPersonageImage();
-        frog.moveFrog(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
+        frog.moveFrog(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() - 100);
 
+        cars = new ArrayList<>();
         cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
         cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
         cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
@@ -95,7 +105,16 @@ public class Main extends Application {
                     frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 frog.setLastKeyPressedToFalse();
-                frog.moveFrog(dx, dy);
+                if (!frog.moveFrog(dx, dy)) {
+
+                    timer.stop();
+                    MusicManager.playMusic(PlayerStatus.WINNER());
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!");
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setOnHidden(evt -> Platform.exit());
+                    alert.show();
+                }
 
                 if(Collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
@@ -116,6 +135,7 @@ public class Main extends Application {
         timer.stop();
         Player.lostLive();
         if (PositionAndImageVariables.livesRemaing() <= 0) {
+            MusicManager.playMusic(PlayerStatus.LOSER());
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você perdeu o jogo!");
             alert.setTitle(null);
             alert.setHeaderText(null);
@@ -142,6 +162,7 @@ public class Main extends Application {
             }
         }
     }
+
     private Frog setPersonageImage() {
         personageImage = new Image(PositionAndImageVariables.FROG_UP());
         ImageViewConstant.frogImg = new ImageView(personageImage);
@@ -180,6 +201,9 @@ public class Main extends Application {
             }
         });
     }
+
+
+
 
     public static void main(String[] args) {
         launch(args);
