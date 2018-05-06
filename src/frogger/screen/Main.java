@@ -46,7 +46,6 @@ public class Main extends Application {
     private AnchorPane anchor = new AnchorPane();
     private AnimationTimer timer;
     private Group frogRoad;
-    DefineCarSpawns carSpawns= new DefineCarSpawns();
 
     private List<Node> cars = new ArrayList<>();
 
@@ -64,9 +63,9 @@ public class Main extends Application {
         frog = setPersonageImage();
         frog.moveFrog(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() / 2);
 
-        cars.add(carSpawns.spawnYellowCar());
-        cars.add(carSpawns.spawnYellowCar());
-        cars.add(carSpawns.spawnRedCar());
+        cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
+        cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
+        cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
 
         frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
 
@@ -116,7 +115,7 @@ public class Main extends Application {
     private void startAgain() {
         timer.stop();
         Player.lostLive();
-        if (PositionAndImageVariables.livesRemaing() < 0) {
+        if (PositionAndImageVariables.livesRemaing() <= 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você perdeu o jogo!");
             alert.setTitle(null);
             alert.setHeaderText(null);
@@ -125,7 +124,7 @@ public class Main extends Application {
         } else {
             try {
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + PositionAndImageVariables.livesRemaing() + " vidas");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + (PositionAndImageVariables.livesRemaing()) + " vidas");
                 alert.setTitle(null);
                 alert.setHeaderText(null);
 
