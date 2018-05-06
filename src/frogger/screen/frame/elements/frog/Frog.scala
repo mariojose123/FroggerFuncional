@@ -11,7 +11,7 @@ class Frog(@BeanProperty var frog: Node) {
   def moveFrogBy(dx: Int, dy: Int): Boolean = {
    // print(this.frog.getLayoutY + "\n")
     val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
-    print(boundsInScene.getMinY + "\n")
+    //print(boundsInScene.getMinY + "\n")
     if (boundsInScene.getMinY > 50) {
       PositionCalculator.moveFrogBy(frog, dx, dy)
       return true

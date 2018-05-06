@@ -47,7 +47,7 @@ public class Main extends Application {
     private Group frogRoad;
 
 
-    private List<Node> cars = new ArrayList<>();
+    private List<Car> cars = new ArrayList<>();
 
 
     public Main() throws IOException {
@@ -68,7 +68,10 @@ public class Main extends Application {
         cars.add(spawnCar());
         cars.add(spawnCar());
 
-        frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
+        frogRoad = new Group(frog.getFrog(),
+                cars.get(0).getCarNode(),
+                cars.get(1).getCarNode(),
+                cars.get(2).getCarNode(), root, livesRemaining);
 
         setZindexOfSprites();
 
@@ -102,7 +105,7 @@ public class Main extends Application {
 
                 }
 
-                if(Collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
+                if(Collisions.onUpdate((ArrayList<Car>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
 
                 }
@@ -113,9 +116,9 @@ public class Main extends Application {
 
     private void setZindexOfSprites() {
         frog.getFrog().toFront();
-        cars.get(0).toFront();
-        cars.get(1).toFront();
-        cars.get(2).toFront();
+        cars.get(0).getCarNode().toFront();
+        cars.get(1).getCarNode().toFront();
+        cars.get(2).getCarNode().toFront();
     }
     private void startAgain() {
         timer.stop();
@@ -192,9 +195,13 @@ public class Main extends Application {
 
     //TODO: tem de verificar se y de um carro n é mto parecido com o de outro, pq se sim eles vao ficar um em cima do outro, Dai tem de gerar outro rand
     private Car spawnCar() {
-        Car car = new Car();
-        car.setTranslateY((int) (Math.random() * 14) * 40);
-        return car;
+        Image carImage = new Image("resources/star.png");
+      // ImageViewConstant.frogImg = new ImageView(carImage);
+        System.out.println("alo");
+        ImageView imageView = new ImageView(carImage);
+      //  ImageView carCharacter = ImageViewConstant.frogImg;
+        return new Car(imageView);
+
     }
 
 }

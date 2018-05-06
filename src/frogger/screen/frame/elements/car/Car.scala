@@ -1,9 +1,24 @@
 package frogger.screen.frame.elements.car
 
-import frogger.screen.frame.elements.TexturedElement
+import frogger.screen.frame.elements.Vehicle.Vehicle
+import javafx.scene.Node
 
-class Car extends TexturedElement(49, 24) {
+import scala.beans.BeanProperty
 
-  setTexture(getClass.getResource("car.png").toString, 49, 24)
+class Car(@BeanProperty var carNode: Node) extends Vehicle {
+
+  setTranslateY((Math.random * 14).toInt * 40)
+
+  //setTexture(getClass.getResource("Resources/star.png").toString, 49, 24)
+  override def move(): Unit = {
+    this.carNode.setTranslateX( this.carNode.getTranslateX + 20)
+  }
+
+  //TODO: tem de verificar se y de um carro n é mto parecido com o de outro, pq se sim eles vao ficar um em cima do outro, Dai tem de gerar outro rand
+//  private def spawnCar = {
+//    val car = new Car
+//    car.setTranslateY((Math.random * 14).toInt * 40)
+//    car
+//  }
 
 }

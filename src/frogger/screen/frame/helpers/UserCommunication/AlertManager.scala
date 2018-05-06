@@ -35,7 +35,7 @@ object AlertManager {
       alert.setTitle(null)
       alert.setHeaderText(null)
       alert.setOnHidden((evt: DialogEvent) => {
-        def foo(evt: DialogEvent) = try
+        def foo(evt: DialogEvent) = try{}
           //start(stage) // quero que quando ele der ok chame a funcao start da main
         catch {
           case e: Exception =>
