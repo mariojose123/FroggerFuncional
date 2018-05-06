@@ -10,8 +10,6 @@ abstract class Car extends TexturedElement(49, 24) {
 
   def setTextureOfCar() {}
 
-  //TODO: tem de verificar se y de um carro n é mto parecido com o de outro, pq se sim eles vao ficar um em cima do outro, Dai tem de gerar outro rand
-
   def setTranslateY(): Double = {
     val start = (PositionAndImageVariables.H - 200).toInt
     val end: Int = PositionAndImageVariables.UP_MARGIN
@@ -29,7 +27,7 @@ abstract class Car extends TexturedElement(49, 24) {
     var cont = 0
     var finalPosition = position
     while (cont < list.length) {
-      if ((finalPosition > list(cont) + 50 || finalPosition < list(cont) - 50)) {
+      if (finalPosition > list(cont) + 50 || finalPosition < list(cont) - 50) {
         cont += 1
       }
       else {

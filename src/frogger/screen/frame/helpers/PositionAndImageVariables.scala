@@ -8,7 +8,7 @@ object PositionAndImageVariables {
 
   val W: Double = 1260
 
-  val H: Double = 720
+  val H: Double = 640
 
   val FROG_UP: String = "frogger/screen/frame/elements/frog/assets/frog-up.png"
 
