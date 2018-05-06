@@ -28,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -61,7 +62,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         PositionAndImageVariables.restartCarPositionsList();
         MusicManager.playMusic(PlayerStatus.STILL_ON_GAME());
 
@@ -76,8 +76,10 @@ public class Main extends Application {
         cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
         cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
         cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
+        cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
+        cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
 
-        frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
+        frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), cars.get(3), cars.get(4), root, livesRemaining);
 
         setZindexOfSprites();
 
@@ -130,6 +132,8 @@ public class Main extends Application {
         cars.get(0).toFront();
         cars.get(1).toFront();
         cars.get(2).toFront();
+        cars.get(3).toFront();
+        cars.get(4).toFront();
     }
     private void startAgain() {
         timer.stop();

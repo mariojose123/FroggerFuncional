@@ -10,19 +10,17 @@ class Frog(var frog: Node) {
     if(frog == null) throw new Exception("Erro no jogo, tente jogar novamente!")
     return frog
   }
-  //Usar polimorfismo por sobrecarga(deixar com o mesmo nome os métodos, NAO MUDEM, pff)
   def moveFrog(dx: Int, dy: Int): Boolean = {
     val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
     if (boundsInScene.getMinY > 10) {
-      PositionCalculator.moveFrogBy(frog, dx, dy)
+      PositionCalculator.moveFrog(frog, dx, dy)
       return true
     }
     return false
   }
 
   def moveFrog(x: Double, y: Double): Unit = {
-    
-    PositionCalculator.moveFrogTo(frog, x, y)
+    PositionCalculator.moveFrog(frog, x, y)
   }
 
   def switchFrog(keyCode: KeyCode): Unit = {

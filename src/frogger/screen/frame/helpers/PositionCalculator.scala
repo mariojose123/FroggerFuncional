@@ -5,16 +5,16 @@ import javafx.scene.input.KeyCode
 
 object PositionCalculator extends PositionSwitches {
 
-  def moveFrogBy(frog: Node, dx: Int, dy: Int): Unit = {
+  def moveFrog(frog: Node, dx: Int, dy: Int): Unit = {
     if (dx == 0 && dy == 0) return
     val cx: Double = frog.getBoundsInLocal.getWidth / 2
     val cy: Double = frog.getBoundsInLocal.getHeight / 2
     val x: Double = cx + frog.getLayoutX + dx
     val y: Double = cy + frog.getLayoutY + dy
-    moveFrogTo(frog, x, y)
+    moveFrog(frog, x, y)
   }
 
-  def moveFrogTo(frog: Node, x: Double, y: Double): Unit = {
+  def moveFrog(frog: Node, x: Double, y: Double): Unit = {
     val cx: Double = frog.getBoundsInLocal.getWidth / 2
     val cy: Double = frog.getBoundsInLocal.getHeight / 2
     if (x - cx >= 0 && x + cx <= PositionAndImageVariables.W && y - cy >= 0 && y + cy <= PositionAndImageVariables.H) {

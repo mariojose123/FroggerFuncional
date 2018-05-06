@@ -17,18 +17,17 @@ abstract class Car extends TexturedElement(49, 24) {
     val interval = start - end
     val r1 = start - r.nextInt(interval)
     val finalPosition = getPosition(r1, PositionAndImageVariables.carPositions)
-    //setTranslateY((Math.random * 14).toInt * 40)
     PositionAndImageVariables.carPositions += finalPosition
     setTranslateY(finalPosition)
     return finalPosition
 
   }
   def getPosition(position: Double, list: mutable.MutableList[Double]): Double = {
-    var cont = 0
+    var count = 0
     var finalPosition = position
-    while (cont < list.length) {
-      if (finalPosition > list(cont) + 50 || finalPosition < list(cont) - 50) {
-        cont += 1
+    while (count < list.length) {
+        if ((finalPosition > list(count) + 60  || finalPosition < list(count) - 58)) {
+        count += 1
       }
       else {
         val start = (PositionAndImageVariables.H - 200).toInt
@@ -37,7 +36,7 @@ abstract class Car extends TexturedElement(49, 24) {
         val interval = start - end
         val newPos = start - r.nextInt(interval)
         finalPosition = newPos
-        cont = 0
+        count = 0
       }
     }
     return finalPosition
