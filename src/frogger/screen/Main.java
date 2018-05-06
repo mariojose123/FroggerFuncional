@@ -11,7 +11,6 @@ import frogger.screen.frame.elements.player.PlayerStatus;
 import frogger.screen.frame.helpers.ImageViewConstant;
 import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
-import frogger.screen.frame.helpers.UserCommunication.AlertManager;
 import frogger.screen.frame.helpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -29,7 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import scala.Enumeration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,12 +48,11 @@ public class Main extends Application {
     private Group frogRoad;
     DefineCarSpawns carSpawns= new DefineCarSpawns();
 
-    private List<Car> cars = new ArrayList<>();
+    private List<Node> cars = new ArrayList<>();
 
 
     public Main() throws IOException {
     }
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -71,10 +68,7 @@ public class Main extends Application {
         cars.add(carSpawns.spawnYellowCar());
         cars.add(carSpawns.spawnRedCar());
 
-        frogRoad = new Group(frog.getFrog(),
-                cars.get(0).getCarNode(),
-                cars.get(1).getCarNode(),
-                cars.get(2).getCarNode(), root, livesRemaining);
+        frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), root, livesRemaining);
 
         setZindexOfSprites();
 
@@ -102,10 +96,9 @@ public class Main extends Application {
                     frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
                 }
                 frog.setLastKeyPressedToFalse();
-
                 frog.moveFrog(dx, dy);
 
-                if(Collisions.onUpdate((ArrayList<Car>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
+                if(Collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
 
                 }
@@ -116,9 +109,9 @@ public class Main extends Application {
 
     private void setZindexOfSprites() {
         frog.getFrog().toFront();
-        cars.get(0).getCarNode().toFront();
-        cars.get(1).getCarNode().toFront();
-        cars.get(2).getCarNode().toFront();
+        cars.get(0).toFront();
+        cars.get(1).toFront();
+        cars.get(2).toFront();
     }
     private void startAgain() {
         timer.stop();
