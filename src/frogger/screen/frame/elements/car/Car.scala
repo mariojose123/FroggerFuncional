@@ -16,17 +16,30 @@ abstract class Car extends TexturedElement(49, 24) {
     val r = new scala.util.Random
     val interval = start - end
     val r1 = start - r.nextInt(interval)
-    val finalPosition = getPosition(r1, PositionAndImageVariables.carPositions)
-    PositionAndImageVariables.carPositions += finalPosition
+    //val finalPosition = getPosition(r1, PositionAndImageVariables.carPositions.elements)
+    val finalPosition = getPos(PositionAndImageVariables.carPositions.elements)
+    PositionAndImageVariables.carPositions.add(this) //+= finalPosition
     setTranslateY(finalPosition)
     return finalPosition
 
   }
-  def getPosition(position: Double, list: mutable.MutableList[Double]): Double = {
+
+  def getPos(list: mutable.MutableList[Car]): Double = {
+    if (list.isEmpty) {
+      return 402
+    }
+    else {
+      val lastElement = list(list.length - 1)
+      return lastElement.localToScene(lastElement.getBoundsInLocal).getMinY - 64
+    }
+  }
+
+  //parei de usar, só nao tirei ainda pra vai que
+  def getPosition(position: Double, list: mutable.MutableList[Car]): Double = {
     var count = 0
     var finalPosition = position
     while (count < list.length) {
-        if ((finalPosition > list(count) + 60  || finalPosition < list(count) - 58)) {
+        if ((finalPosition > list(count).getTranslateY + 60  || finalPosition < list(count).getTranslateY - 58)) {
         count += 1
       }
       else {

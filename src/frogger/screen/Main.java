@@ -78,8 +78,9 @@ public class Main extends Application {
         cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
         cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
         cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
+        cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
 
-        frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), cars.get(3), cars.get(4), root, livesRemaining);
+        frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), cars.get(3), cars.get(4), cars.get(5), root, livesRemaining);
 
         setZindexOfSprites();
 
@@ -134,6 +135,7 @@ public class Main extends Application {
         cars.get(2).toFront();
         cars.get(3).toFront();
         cars.get(4).toFront();
+        cars.get(5).toFront();
     }
     private void startAgain() {
         timer.stop();

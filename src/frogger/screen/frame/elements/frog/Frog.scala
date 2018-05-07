@@ -14,6 +14,7 @@ class Frog(var frog: Node) {
     val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
     if (boundsInScene.getMinY > 10) {
       PositionCalculator.moveFrog(frog, dx, dy)
+      print(boundsInScene.getMinY + "\n")
       return true
     }
     return false

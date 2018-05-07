@@ -17,7 +17,7 @@ object MusicManager {
   def playMusic(playerStatus: PlayerStatus.Value){
     mediaPlayer.stop()
     playerState = playerStatus
-    playMusica(buildMusicPath)
+    playSound(buildMusicPath)
   }
 
   private def buildMusicPath(playerStatus: PlayerStatus.Value): String ={
@@ -34,7 +34,7 @@ object MusicManager {
     }
   }
 
-  private def playMusica(f: PlayerStatus.Value => String): Unit ={
+  private def playSound(f: PlayerStatus.Value => String): Unit ={
       musicFile = f(playerState)
       sound = new Media(new File(musicFile).toURI.toString)
       mediaPlayer = new MediaPlayer(sound)

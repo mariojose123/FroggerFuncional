@@ -1,6 +1,6 @@
 package frogger.screen.frame.helpers
 
-import scala.collection.mutable
+import frogger.screen.frame.elements.car.Car
 
 object PositionAndImageVariables {
 
@@ -30,10 +30,12 @@ object PositionAndImageVariables {
 
   var UP_MARGIN = 50
 
-  var carPositions = mutable.MutableList[Double]()
+  //var carPositions = mutable.MutableList[Double]()
+  var carPositions = new GenericList[Car]
 
   def restartCarPositionsList(): Unit = {
-    carPositions = mutable.MutableList[Double]()
+    //carPositions = mutable.MutableList[Double]()
+    carPositions.restart()
   }
 
   def reestartLivesRemaining(): Unit ={
