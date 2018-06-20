@@ -2,10 +2,12 @@ package frogger.screen.frame.elements.player
 
 import frogger.screen.frame.helpers.PositionAndImageVariables
 
-object Player {
+class Player() {
 
+  val positionAndImages = new PositionAndImageVariables
+  var numberOfLives = 3
   def lostLive() {
-    PositionAndImageVariables.livesRemaing -= 1
+    numberOfLives -= 1
   }
 
 }

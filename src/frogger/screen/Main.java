@@ -52,9 +52,11 @@ public class Main extends Application {
     private AnchorPane anchor = new AnchorPane();
     private AnimationTimer timer;
     private Group frogRoad;
-
-
+    private LivesRemaingLabel livesLabel;
+    private MusicManager musicManager = new MusicManager();
+    private PositionAndImageVariables positionAndImages = new PositionAndImageVariables();
     private List<Node> cars = new ArrayList<>();
+    private Player player = new Player();
 
 
     public Main() throws IOException {
@@ -62,23 +64,39 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        PositionAndImageVariables.restartCarPositionsList();
-        MusicManager.playMusic(PlayerStatus.STILL_ON_GAME());
+        livesLabel = new LivesRemaingLabel(player);
+        positionAndImages.restartCarPositionsList();
+        musicManager.playMusic(PlayerStatus.STILL_ON_GAME());
 
         root = getParentContent();
 
-        LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining);
+        livesLabel.livesRemainingPanel(anchor, livesRemaining);
 
         frog = setPersonageImage();
-        frog.moveFrog(PositionAndImageVariables.W() / 2, PositionAndImageVariables.H() - 100);
+        frog.moveFrog(positionAndImages.W() / 2, positionAndImages.H() - 100);
 
         cars = new ArrayList<>();
-        cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
-        cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
-        cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
-        cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
-        cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
-        cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
+
+        List<Car> carList = new ArrayList<>();
+        carList.add(new YellowCar());
+        carList.add(new RedCar());
+        carList.add(new YellowCar());
+        carList.add(new RedCar());
+        carList.add(new YellowCar());
+        carList.add(new RedCar());
+
+       // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
+       // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
+       // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
+       // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
+       // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
+       // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
+        for ( Car car : carList ) {
+            car.setTranslateY(positionAndImages);
+            car.setTextureOfCar();
+            cars.add((new DefineCarSpawns(car)).getSpawnCar());
+            positionAndImages.carPositions().add(car);
+        }
 
         frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), cars.get(3), cars.get(4), cars.get(5), root, livesRemaining);
 
@@ -95,23 +113,23 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 int dx = 0, dy = 0;
-                if (PositionAndImageVariables.goUp()) {
-                    frog.getFrog().setTranslateY(frog.getFrog().getTranslateY() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
+                if (positionAndImages.goUp()) {
+                    frog.getFrog().setTranslateY(frog.getFrog().getTranslateY() - positionAndImages.KEYBOARD_MOVEMENT_DELTA());
                 }
-                if (PositionAndImageVariables.goDown()) {
-                    frog.getFrog().setTranslateY(frog.getFrog().getTranslateY() + PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
+                if (positionAndImages.goDown()) {
+                    frog.getFrog().setTranslateY(frog.getFrog().getTranslateY() + positionAndImages.KEYBOARD_MOVEMENT_DELTA());
                 }
-                if (PositionAndImageVariables.goRigth()) {
-                    frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() + PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
+                if (positionAndImages.goRigth()) {
+                    frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() + positionAndImages.KEYBOARD_MOVEMENT_DELTA());
                 }
-                if (PositionAndImageVariables.goLeft()) {
-                    frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA());
+                if (positionAndImages.goLeft()) {
+                    frog.getFrog().setTranslateX(frog.getFrog().getTranslateX() - positionAndImages.KEYBOARD_MOVEMENT_DELTA());
                 }
-                frog.setLastKeyPressedToFalse();
+                positionAndImages.setFalseToLastKeyActive();
                 if (!frog.moveFrog(dx, dy)) {
 
                     timer.stop();
-                    MusicManager.playMusic(PlayerStatus.WINNER());
+                    musicManager.playMusic(PlayerStatus.WINNER());
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!");
                     alert.setTitle(null);
                     alert.setHeaderText(null);
@@ -139,9 +157,9 @@ public class Main extends Application {
     }
     private void startAgain() {
         timer.stop();
-        Player.lostLive();
-        if (PositionAndImageVariables.livesRemaing() <= 0) {
-            MusicManager.playMusic(PlayerStatus.LOSER());
+        player.lostLive();
+        if (player.numberOfLives() <= 0) {
+            musicManager.playMusic(PlayerStatus.LOSER());
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você perdeu o jogo!");
             alert.setTitle(null);
             alert.setHeaderText(null);
@@ -150,7 +168,7 @@ public class Main extends Application {
         } else {
             try {
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + (PositionAndImageVariables.livesRemaing()) + " vidas");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + (player.numberOfLives()) + " vidas");
                 alert.setTitle(null);
                 alert.setHeaderText(null);
 
@@ -170,7 +188,7 @@ public class Main extends Application {
     }
 
     private Frog setPersonageImage() {
-        personageImage = new Image(PositionAndImageVariables.FROG_UP());
+        personageImage = new Image(positionAndImages.FROG_UP());
         ImageViewConstant.frogImg = new ImageView(personageImage);
         personage = ImageViewConstant.frogImg;
         return new Frog(personage);
@@ -183,7 +201,7 @@ public class Main extends Application {
     private void setStageAndScene(Stage primaryStage, Group frogRoad) {
         this.stage = primaryStage;
         stage.setTitle("Frogger - MLP");
-        Scene scene = new Scene(frogRoad, PositionAndImageVariables.W(), PositionAndImageVariables.H());
+        Scene scene = new Scene(frogRoad, positionAndImages.W(), positionAndImages.H());
         stage.setScene(scene);
         stage.setResizable(false);
 
@@ -195,14 +213,15 @@ public class Main extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                frog.switchFrog(event.getCode());
+                //frog.switchFrog(event.getCode());
+                positionAndImages.switchPosition(event.getCode());
             }
         });
 
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                frog.switchFrogPositionAndImage(event.getCode());
+                positionAndImages.switchPositionAndImage(event.getCode());
             }
         });
     }

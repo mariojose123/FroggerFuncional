@@ -4,13 +4,16 @@ import javafx.geometry.Insets
 import javafx.scene.control.Label
 import javafx.scene.layout.{AnchorPane, Background, BackgroundFill, CornerRadii}
 import javafx.scene.paint.Color
+import frogger.screen.frame.elements.player.Player
 
-object LivesRemaingLabel {
+class LivesRemaingLabel(player : Player) {
 
-   def livesRemainingPanel(anchor: AnchorPane, livesRemaining: Label): Unit = {
+ // private val positionAndImages = new PositionAndImageVariables
+
+  def livesRemainingPanel(anchor: AnchorPane, livesRemaining: Label): Unit = {
     AnchorPane.setTopAnchor(livesRemaining, 50.0)
     AnchorPane.setRightAnchor(livesRemaining, 50.0)
-     livesRemaining.setText(new StringBuilder().append("Vidas Restantes: "+ PositionAndImageVariables.livesRemaing).toString())
+     livesRemaining.setText(new StringBuilder().append("Vidas Restantes: "+ player.numberOfLives).toString())
     livesRemaining.setTextFill(Color.web("#0076a3"))
     livesRemaining.setScaleY(1.5)
     livesRemaining

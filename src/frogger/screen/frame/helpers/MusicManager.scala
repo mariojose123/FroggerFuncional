@@ -5,7 +5,7 @@ import frogger.screen.frame.elements.player.PlayerStatus
 
 import javafx.scene.media.{Media, MediaPlayer}
 
-object MusicManager {
+class MusicManager() {
 
     var musicFile = "music.mp3"
     var sound = new Media(new File(musicFile).toURI.toString)

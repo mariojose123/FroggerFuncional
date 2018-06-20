@@ -21,14 +21,14 @@ class DefineCarSpawns(val car: Car) {
   }
 
   def spawnCars(yellowCar: YellowCar): YellowCar = {
-    yellowCar.setTranslateY()
-    yellowCar.setTextureOfCar()
+    //yellowCar.setTranslateY()
+    //yellowCar.setTextureOfCar()
     return yellowCar
   }
 
   def spawnCars(redCar: RedCar): RedCar = {
-    redCar.setTranslateY()
-    redCar.setTextureOfCar()
+    //redCar.setTranslateY()
+    //redCar.setTextureOfCar()
     return redCar
   }
 

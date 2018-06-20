@@ -1,8 +1,10 @@
 package frogger.screen.frame.helpers
 
 import frogger.screen.frame.elements.car.Car
+import javafx.scene.image.Image
+import javafx.scene.input.KeyCode
 
-object PositionAndImageVariables {
+class PositionAndImageVariables() {
 
   val KEYBOARD_MOVEMENT_DELTA = 12
 
@@ -26,7 +28,7 @@ object PositionAndImageVariables {
 
   var goLeft: Boolean = false
 
-  var livesRemaing = 3
+  //var livesRemaing = 3
 
   var UP_MARGIN = 50
 
@@ -38,8 +40,50 @@ object PositionAndImageVariables {
     carPositions.restart()
   }
 
-  def reestartLivesRemaining(): Unit ={
+  /*def reestartLivesRemaining(): Unit ={
     if(livesRemaing < 0) livesRemaing = 3;
+  }*/
+  def switchPosition(keyCode: KeyCode): Unit = keyCode match {
+    case KeyCode.UP => this.goUp = false
+    case KeyCode.DOWN => this.goDown = false
+    case KeyCode.LEFT => this.goLeft = false
+    case KeyCode.RIGHT => this.goRigth = false
+    case x => false
+  }
+  def switchPositionAndImage(keyCode: KeyCode): Unit = keyCode match {
+    case KeyCode.UP => {
+      this.goUp = true
+      ImageViewConstant.frogImg.setImage(new Image(this.FROG_UP))
+    }
+    case KeyCode.DOWN => {
+      this.goDown = true
+      ImageViewConstant.frogImg.setImage(new Image(this.FROG_DOWN))
+    }
+    case KeyCode.LEFT
+    => {
+      this.goLeft = true
+      ImageViewConstant.frogImg.setImage(new Image(this.FROG_LEFT))
+    }
+    case KeyCode.RIGHT
+    => {
+      this.goRigth = true
+      ImageViewConstant.frogImg.setImage(new Image(this.FROG_RIGHT))
+    }
+    case x => {}
+  }
+  def setFalseToLastKeyActive(): Unit ={
+    if (this.goUp) {
+      this.goUp = false
+    }
+    if (this.goDown) {
+      this.goDown = false
+    }
+    if (this.goRigth) {
+      this.goRigth = false
+    }
+    if (this.goLeft) {
+      this.goLeft = false
+    }
   }
 
 }

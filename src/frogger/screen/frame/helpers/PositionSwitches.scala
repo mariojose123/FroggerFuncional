@@ -1,52 +1,51 @@
 package frogger.screen.frame.helpers
 
-import javafx.scene.image.Image
-import javafx.scene.input.KeyCode
-
 trait PositionSwitches {
 
-  def switchPosition(keyCode: KeyCode): Unit = keyCode match {
-    case KeyCode.UP => PositionAndImageVariables.goUp = false
-    case KeyCode.DOWN => PositionAndImageVariables.goDown = false
-    case KeyCode.LEFT => PositionAndImageVariables.goLeft = false
-    case KeyCode.RIGHT => PositionAndImageVariables.goRigth = false
-    case x => false
-  }
+  private val positionAndImages = new PositionAndImageVariables()
 
-  def switchPositionAndImage(keyCode: KeyCode): Unit = keyCode match {
+  /*def switchPosition(keyCode: KeyCode): Unit = keyCode match {
+    case KeyCode.UP => positionAndImages.goUp = false
+    case KeyCode.DOWN => positionAndImages.goDown = false
+    case KeyCode.LEFT => positionAndImages.goLeft = false
+    case KeyCode.RIGHT => positionAndImages.goRigth = false
+    case x => false
+  }*/
+
+ /* def switchPositionAndImage(keyCode: KeyCode): Unit = keyCode match {
     case KeyCode.UP => {
-      PositionAndImageVariables.goUp = true
-      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_UP))
+      positionAndImages.goUp = true
+      ImageViewConstant.frogImg.setImage(new Image(positionAndImages.FROG_UP))
     }
     case KeyCode.DOWN => {
-      PositionAndImageVariables.goDown = true
-      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_DOWN))
+      positionAndImages.goDown = true
+      ImageViewConstant.frogImg.setImage(new Image(positionAndImages.FROG_DOWN))
     }
     case KeyCode.LEFT
     => {
-      PositionAndImageVariables.goLeft = true
-      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_LEFT))
+      positionAndImages.goLeft = true
+      ImageViewConstant.frogImg.setImage(new Image(positionAndImages.FROG_LEFT))
     }
     case KeyCode.RIGHT
     => {
-      PositionAndImageVariables.goRigth = true
-      ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_RIGHT))
+      positionAndImages.goRigth = true
+      ImageViewConstant.frogImg.setImage(new Image(positionAndImages.FROG_RIGHT))
     }
     case x => {}
-  }
+  }*/
 
-  def setFalseToLastKeyActive(): Unit ={
-    if (PositionAndImageVariables.goUp) {
-      PositionAndImageVariables.goUp = false
+  /*def setFalseToLastKeyActive(): Unit ={
+    if (positionAndImages.goUp) {
+      positionAndImages.goUp = false
     }
-    if (PositionAndImageVariables.goDown) {
-      PositionAndImageVariables.goDown = false
+    if (positionAndImages.goDown) {
+      positionAndImages.goDown = false
     }
-    if (PositionAndImageVariables.goRigth) {
-      PositionAndImageVariables.goRigth = false
+    if (positionAndImages.goRigth) {
+      positionAndImages.goRigth = false
     }
-    if (PositionAndImageVariables.goLeft) {
-      PositionAndImageVariables.goLeft = false
+    if (positionAndImages.goLeft) {
+      positionAndImages.goLeft = false
     }
-  }
+  }*/
 }
