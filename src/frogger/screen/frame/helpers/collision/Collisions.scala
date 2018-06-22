@@ -7,7 +7,7 @@ import javafx.stage.Stage
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-object Collisions {
+class Collisions {
 
 
   def onUpdate(carList: java.util.ArrayList[Node], frog: Frog, stage: Stage):  PlayerStatus.Value = {

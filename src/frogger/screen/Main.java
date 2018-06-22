@@ -13,6 +13,7 @@ import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.MusicManager;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
 import frogger.screen.frame.helpers.collision.Collisions;
+import frogger.screen.frame.helpers.managers.CarManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -39,6 +40,8 @@ import java.util.List;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+
+
 public class Main extends Application {
 
     private GameFrame game;
@@ -57,6 +60,8 @@ public class Main extends Application {
     private PositionAndImageVariables positionAndImages = new PositionAndImageVariables();
     private List<Node> cars = new ArrayList<>();
     private Player player = new Player();
+    private Collisions collisions = new Collisions();
+    private CarManager carManager = new CarManager();
 
 
     public Main() throws IOException {
@@ -75,15 +80,8 @@ public class Main extends Application {
         frog = setPersonageImage();
         frog.moveFrog(positionAndImages.W() / 2, positionAndImages.H() - 100);
 
-        cars = new ArrayList<>();
 
-        List<Car> carList = new ArrayList<>();
-        carList.add(new YellowCar());
-        carList.add(new RedCar());
-        carList.add(new YellowCar());
-        carList.add(new RedCar());
-        carList.add(new YellowCar());
-        carList.add(new RedCar());
+
 
        // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
        // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
@@ -91,12 +89,9 @@ public class Main extends Application {
        // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
        // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
        // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
-        for ( Car car : carList ) {
-            car.setTranslateY(positionAndImages);
-            car.setTextureOfCar();
-            cars.add((new DefineCarSpawns(car)).getSpawnCar());
-            positionAndImages.carPositions().add(car);
-        }
+
+        List<Node> carList = carManager.addCars(positionAndImages);
+        cars = new ArrayList<>(carList);
 
         frogRoad = new Group(frog.getFrog(), cars.get(0), cars.get(1), cars.get(2), cars.get(3), cars.get(4), cars.get(5), root, livesRemaining);
 
@@ -137,7 +132,7 @@ public class Main extends Application {
                     alert.show();
                 }
 
-                if(Collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
+                if(collisions.onUpdate((ArrayList<Node>) cars, frog, stage).compareTo(PlayerStatus.LOSER()) ==0){
                     startAgain();
 
                 }
@@ -148,12 +143,9 @@ public class Main extends Application {
 
     private void setZindexOfSprites() {
         frog.getFrog().toFront();
-        cars.get(0).toFront();
-        cars.get(1).toFront();
-        cars.get(2).toFront();
-        cars.get(3).toFront();
-        cars.get(4).toFront();
-        cars.get(5).toFront();
+        for (Node car : cars) {
+            car.toFront();
+        }
     }
     private void startAgain() {
         timer.stop();
