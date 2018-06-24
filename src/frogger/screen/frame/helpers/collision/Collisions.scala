@@ -9,7 +9,6 @@ import scala.collection.JavaConversions.asScalaBuffer
 
 class Collisions {
 
-
   def onUpdate(carList: java.util.ArrayList[Node], frog: Frog, stage: Stage):  PlayerStatus.Value = {
     for (car <- carList) {
       if (car.getTranslateX > stage.getWidth){

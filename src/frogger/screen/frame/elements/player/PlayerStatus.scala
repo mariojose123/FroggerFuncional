@@ -7,4 +7,6 @@ object PlayerStatus extends Enumeration {
   val WINNER      = Value("WINNER")
   val LOSER       = Value("LOSER")
   val PAUSED         = Value("PAUSED")
-  val STILL_ON_GAME = Value("STILL_ON_GAME")}
+  val STILL_ON_GAME = Value("STILL_ON_GAME")
+
+}

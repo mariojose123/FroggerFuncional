@@ -8,7 +8,6 @@ class PositionAndImageVariables() {
 
   val KEYBOARD_MOVEMENT_DELTA = 12
 
-
   val W: Double = 1260
 
   val H: Double = 640
@@ -29,21 +28,15 @@ class PositionAndImageVariables() {
 
   var goLeft: Boolean = false
 
-  //var livesRemaing = 3
-
   var UP_MARGIN = 50
 
-  //var carPositions = mutable.MutableList[Double]()
   var carPositions = new GenericList[Car]
 
   def restartCarPositionsList(): Unit = {
-    //carPositions = mutable.MutableList[Double]()
+
     carPositions.restart()
   }
 
-  /*def reestartLivesRemaining(): Unit ={
-    if(livesRemaing < 0) livesRemaing = 3;
-  }*/
   def switchPosition(keyCode: KeyCode): Unit = keyCode match {
     case KeyCode.UP => this.goUp = false
     case KeyCode.DOWN => this.goDown = false

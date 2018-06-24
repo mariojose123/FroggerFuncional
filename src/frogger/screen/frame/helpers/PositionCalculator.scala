@@ -2,7 +2,7 @@ package frogger.screen.frame.helpers
 
 import javafx.scene.Node
 
-class PositionCalculator extends PositionSwitches {
+class PositionCalculator  {
 
   private val positionAndImages = new PositionAndImageVariables()
 
@@ -22,10 +22,5 @@ class PositionCalculator extends PositionSwitches {
       frog.relocate(x - cx, y - cy)
     }
   }
-  /*def switchDirection(keyCode: KeyCode) : Unit = {
-   // switchPosition(keyCode)
-  }*/
-  /*def switchDirectionAndImage(keyCode: KeyCode) : Unit = {
-    switchPositionAndImage(keyCode)
-  }*/
+
 }

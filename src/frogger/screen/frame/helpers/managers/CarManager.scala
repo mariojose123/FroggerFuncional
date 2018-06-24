@@ -21,13 +21,10 @@ class CarManager {
       else newCar = new RedCar
       newCar.setTranslateY(positionAndImages)
       newCar.setTextureOfCar()
-      //cars.update(cont,new DefineCarSpawns(newCar).getSpawnCar)
       cars.+=(new DefineCarSpawns(newCar).getSpawnCar)
-      //cars.add(new DefineCarSpawns(newCar).getSpawnCar)
       positionAndImages.carPositions.add(newCar)
       cont += 1;
     }
-   // val jl : util.List[Node] = cars.asJava
     return cars.asJava
   }
 }

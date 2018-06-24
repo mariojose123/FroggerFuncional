@@ -13,6 +13,7 @@ import frogger.screen.frame.helpers.LivesRemaingLabel;
 import frogger.screen.frame.helpers.MusicManager;
 import frogger.screen.frame.helpers.PositionAndImageVariables;
 import frogger.screen.frame.helpers.collision.Collisions;
+import frogger.screen.frame.helpers.managers.AlertManager;
 import frogger.screen.frame.helpers.managers.CarManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -24,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -62,6 +64,7 @@ public class Main extends Application {
     private Player player = new Player();
     private Collisions collisions = new Collisions();
     private CarManager carManager = new CarManager();
+    private AlertManager alertManager = new AlertManager();
 
 
     public Main() throws IOException {
@@ -80,15 +83,6 @@ public class Main extends Application {
         frog = setPersonageImage();
         frog.moveFrog(positionAndImages.W() / 2, positionAndImages.H() - 100);
 
-
-
-
-       // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
-       // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
-       // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
-       // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
-       // cars.add((new DefineCarSpawns(new YellowCar())).getSpawnCar());
-       // cars.add((new DefineCarSpawns(new RedCar())).getSpawnCar());
 
         List<Node> carList = carManager.addCars(positionAndImages);
         cars = new ArrayList<>(carList);
@@ -205,7 +199,6 @@ public class Main extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                //frog.switchFrog(event.getCode());
                 positionAndImages.switchPosition(event.getCode());
             }
         });
@@ -217,9 +210,6 @@ public class Main extends Application {
             }
         });
     }
-
-
-
 
     public static void main(String[] args) {
         launch(args);
