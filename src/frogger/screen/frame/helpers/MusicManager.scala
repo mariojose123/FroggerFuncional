@@ -7,12 +7,10 @@ import javafx.scene.media.{Media, MediaPlayer}
 
 class MusicManager() {
 
-    var musicFile = "music.mp3"
-    var sound = new Media(new File(musicFile).toURI.toString)
-    var mediaPlayer = new MediaPlayer(sound)
-    //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE)
-
-   var playerState = PlayerStatus.STILL_ON_GAME
+  private var musicFile = "music.mp3"
+  private var sound = new Media(new File(musicFile).toURI.toString)
+  private var mediaPlayer = new MediaPlayer(sound)
+  private var playerState = PlayerStatus.STILL_ON_GAME
 
   def playMusic(playerStatus: PlayerStatus.Value){
     mediaPlayer.stop()

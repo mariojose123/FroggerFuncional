@@ -23,6 +23,5 @@ class Frog(var frog: Node) {
   def moveFrog(x: Double, y: Double): Unit = {
     positionCalculator.moveFrog(frog, x, y)
   }
-  
 
 }
