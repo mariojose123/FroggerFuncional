@@ -23,17 +23,6 @@ class Frog(var frog: Node) {
   def moveFrog(x: Double, y: Double): Unit = {
     positionCalculator.moveFrog(frog, x, y)
   }
-
-  /*def switchFrog(keyCode: KeyCode): Unit = {
-    PositionCalculator.switchPosition(keyCode)
-  }*/
-
-  /*def setLastKeyPressedToFalse(): Unit = {
-    PositionCalculator.setFalseToLastKeyActive()
-  }*/
-
-  /*def switchFrogPositionAndImage(keyCode: KeyCode): Unit = {
-    PositionCalculator.switchDirectionAndImage(keyCode)
-  }*/
+  
 
 }
